@@ -34,7 +34,9 @@ def get_empregados_info(info,value):
             
             if type(value_empregado) == str:
                 if value == value_empregado.lower():
-                    out_empregados.append()
+                    out_empregados.append(empregado)
+                if value == value_empregado:
+                    out_empregados.append(empregado)
             
             if type(value_empregado) == int:
                 if int(value) == value_empregado:
