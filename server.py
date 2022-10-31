@@ -1,6 +1,6 @@
 #conda install flask -> instalar com anaconda
 #pip install flask -> instalar o flask com o gerenciador de arquivos do Python
-from flask import Flask #Importando o Flask
+from flask import Flask # Importando o Flask
 
 empregados = [
                 {'nome' : 'Valentina', 'cargo' : 'Analista' , 'salario' : 5000},
