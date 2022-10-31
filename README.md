@@ -1,6 +1,6 @@
 # WebService_Python
 Instalando o Flask :
--> Para Instalar o Flask pelo pip é so dar o comando : pip install flask
+- Para Instalar o Flask pelo pip é so dar o comando : pip install flask
 -> Através do Anaconda : conda install flask
 Resto dos passos , relacionado a banco de dados :
 -> Instalar o Jupyter Notebook
