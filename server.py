@@ -21,7 +21,7 @@ def get_empregados():
 def get_empregados_cargo(cargo):
     out_empregados = []
     for empregado in empregados:
-        if(cargo == empregado['cargo']):
+        if cargo == empregado['cargo'].lower():
             out_empregados.append(empregado)
     return {'empregados' : out_empregados}
 
