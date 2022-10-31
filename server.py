@@ -23,7 +23,7 @@ def get_empregados_cargo(cargo):
     for empregado in empregados:
         if(cargo == empregado['cargo']):
             out_empregados.append(empregado)
-    return out_empregados
+    return {'empregados' : out_empregados}
 
 if __name__ == "__main__":
     app.run(debug=True)
