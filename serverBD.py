@@ -26,16 +26,13 @@ class User(Base):
     
 Base.metadata.create_all(engine)
 
-user = User(name = 'Pedro' , cargo = 'Host' , salario = 1000)
-
 Session = sessionmaker(bind=engine)
 session = Session()
-session.add(user)
 session.commit()
 
 session.add_all([
-    User(name = 'Rodrigo' , cargo = 'C D' , salario = 1),
-    User(name = 'A' , cargo = 'A B' , salario = 2)
+    User(id = 1 , name = 'Rodrigo' , cargo = 'C D' , salario = 1),
+    User(id = 2 ,name = 'A' , cargo = 'A B' , salario = 2)
 ])
 
 app = Flask(__name__)
@@ -44,11 +41,19 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///minicurso.db'
 
 db = SQLAlchemy(app)
 
-@app.route("/usuarios",methods=['GET'])
+@app.route("/usuarios",methods=['GET'])#Pega todos os dados
 def seleciona_usuarios():
-    usuarios_classe = User.query.all()
+    usuarios_classe = session.new
     usuarios_json = [usuario.to_json() for usuario in usuarios_classe]
     return gera_response(200,"usuarios",usuarios_json)
+
+@app.route("/usuarios/<name>",methods=["GET"])
+def seleciona_usuario(name):
+    usuario_classe = session.new
+    for pessoa in usuario_classe:
+        if name == pessoa.name:
+            return gera_response(200,"usuario",pessoa.to_json())
+    return "Não encontrado"
 
 
 def gera_response(status,nome_do_conteudo,conteudo,mensagem=False):
