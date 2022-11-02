@@ -1,10 +1,10 @@
 #Instalar o Flask e Flask-SQLAlchemy
 #Instalar da seguinte maneira : pip install Flask Flask-SQLAclhemy
-import os
-from flask import Flask, Response , render_template, request,url_for,redirect
+import os #Importa o modulo OS que disponibiliza diversas interfaces do sistema operacional , vai ser utilizado para fazer o caminho do arquivo até o banco de dados
+from flask import Flask, Response , render_template, request,url_for,redirect 
 from flask_sqlalchemy import SQLAlchemy
 import json
-from sqlalchemy.sql import func
+from sqlalchemy.sql import func #Funções do SQL
 
 #Flask para usarmos o Flask em si
 #Importa o render_template para ter a função para ter alguns templates disponiveis
@@ -35,8 +35,6 @@ class Usuario(db.Model):
     cargo = db.Column(db.String(50),nullable = False)
     salario = db.Column(db.Integer)
     
-    def __repr__(self):
-        return f'<Usuario {self.nome}>'
     def to_json(self):
         return{"id": self.id,"nome" : self.nome , "cargo" : self.cargo , "salario" : self.salario}
     
