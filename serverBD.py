@@ -19,6 +19,16 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+users = [
+            {"username":"Pedro","secret":"root"}
+        ]
+
+def check_user(username , secret):
+    for user in users:
+        if(user["username"] == username) and (user["secret"] == secret):
+            return True
+    return False
+
 class Usuario(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     nome = db.Column(db.String(50),nullable = False)
@@ -46,6 +56,12 @@ def seleciona_usuario(id):
 
 @app.route("/usuario",methods=["POST"]) #Criar Usuario
 def cria_usuario():
+    username = request.get_json()
+    secret = request.get_json()
+    
+    if not check_user(username['username'],secret['secret']):
+        return gera_response(401,"usuario",{},"Acesso não autorizado")
+    
     body = request.get_json()
     
     try:
@@ -59,6 +75,12 @@ def cria_usuario():
     
 @app.route("/usuario/<id>",methods=["PUT"]) #Atualizar dados
 def atualiza_usuario(id):
+    username = request.get_json()
+    secret = request.get_json()
+    
+    if not check_user(username['username'],secret['secret']):
+        return gera_response(401,"usuario",{},"Acesso não autorizado")
+    
     usuario_objeto = Usuario.query.filter_by(id=id).first()
     body = request.get_json()
     
@@ -78,7 +100,13 @@ def atualiza_usuario(id):
         return gera_response(400,"usuario",{},"Erro ao atualizar")
     
 @app.route("/usuario/<id>",methods=["DELETE"]) #Deleta usuario
-def deleta_usuario(id):
+def deleta_usuario(id): 
+    username = request.get_json()
+    secret = request.get_json()
+    
+    if not check_user(username['username'],secret['secret']):
+        return gera_response(401,"usuario",{},"Acesso não autorizado")
+    
     usuario_objeto = Usuario.query.filter_by(id=id).first()
     
     try:
